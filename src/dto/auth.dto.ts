@@ -8,6 +8,7 @@ import {
   MinLength,
 } from 'class-validator';
 
+// Register
 export class registerDTO {
   @IsString()
   @MinLength(3)
