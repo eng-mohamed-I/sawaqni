@@ -4,12 +4,15 @@ import { Model } from 'mongoose';
 import { User } from 'src/core/schemas/user.schema';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { Token } from 'src/core/schemas/token.schema';
+import { JwtTokenService } from '../services/jwt-token/jwt-token.service';
 //=====================================================
 @Injectable()
 export class AuthService {
   constructor(
     @InjectModel(User.name) private userModel: Model<User>,
-    private _jwtService: JwtService,
+    @InjectModel(Token.name) private tokenModel: Model<Token>,
+    private _tokenService: JwtTokenService,
   ) {}
   //=========================================================
   // Register
@@ -39,11 +42,24 @@ export class AuthService {
         HttpStatus.CONFLICT,
       );
 
-    const payload = { sub: foundUser.id };
+    const accessToken = await this._tokenService.generateAccessToken({
+      id: foundUser.id,
+    });
+    const refreshToken = await this._tokenService.generateRefreshToken({
+      id: foundUser.id,
+    });
+
+    const newToken = new this.tokenModel({
+      user: foundUser.id,
+      refresh_token: refreshToken,
+    });
+
+    await newToken.save();
 
     return {
       message: 'Login successfully',
-      access_token: await this._jwtService.signAsync(payload),
+      access_token: accessToken,
+      refreshToken: refreshToken,
     };
   }
   //====================================================
