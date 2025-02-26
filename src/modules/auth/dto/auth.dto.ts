@@ -25,3 +25,15 @@ export class registerDTO {
   @IsNotEmpty()
   password: string;
 }
+
+// Login
+export class loginDTO {
+  @IsString()
+  @IsEmail()
+  @IsNotEmpty()
+  email: string;
+
+  @IsString()
+  @IsNotEmpty()
+  password: string;
+}

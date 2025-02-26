@@ -1,11 +1,11 @@
 import { Body, Controller, Post, ValidationPipe } from '@nestjs/common';
 import { AuthService } from '../service/auth.service';
-import { registerDTO } from '../dto/auth.dto';
-
+import { loginDTO, registerDTO } from '../dto/auth.dto';
+//====================================================
 @Controller('auth')
 export class AuthController {
   constructor(private _authService: AuthService) {}
-
+  //====================================================
   // Register
   @Post('register')
   register(
@@ -14,4 +14,14 @@ export class AuthController {
   ) {
     return this._authService.register(body);
   }
+  //====================================================
+  // Login
+  @Post('login')
+  login(
+    @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
+    body: loginDTO,
+  ) {
+    return this._authService.login(body);
+  }
+  //====================================================
 }
