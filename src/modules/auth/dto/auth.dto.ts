@@ -5,7 +5,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-
+//=======================================
 // Register
 export class registerDTO {
   @IsString()
