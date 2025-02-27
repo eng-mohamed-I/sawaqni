@@ -34,8 +34,12 @@ export class JwtTokenService {
 
   // Verify refresh token
   async verifyRefreshToken(token: string): Promise<any> {
-    return this._jwtService.verifyAsync(token, {
-      secret: this._configService.get<string>('JWT_REFRESH_KEY'),
-    });
+    try {
+      return await this._jwtService.verifyAsync(token, {
+        secret: this._configService.get<string>('JWT_REFRESH_KEY'),
+      });
+    } catch (error) {
+      return null;
+    }
   }
 }

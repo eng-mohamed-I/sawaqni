@@ -37,3 +37,10 @@ export class loginDTO {
   @IsNotEmpty()
   password: string;
 }
+
+// RefreshToken
+export class refreshTokenDTO {
+  @IsString()
+  @IsNotEmpty()
+  refresh_token: string;
+}
