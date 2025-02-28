@@ -27,9 +27,13 @@ export class JwtTokenService {
 
   // Verify Access token
   async verifyAccessToken(token: string): Promise<any> {
-    this._jwtService.verifyAsync(token, {
-      secret: this._configService.get<string>('JWT_ACCESS_KEY'),
-    });
+    try {
+      return await this._jwtService.verifyAsync(token, {
+        secret: this._configService.get<string>('JWT_ACCESS_KEY'),
+      });
+    } catch (err) {
+      return null;
+    }
   }
 
   // Verify refresh token
