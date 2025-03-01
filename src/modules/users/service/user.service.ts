@@ -30,7 +30,7 @@ export class UserService {
   async addUser(body: any) {
     const { full_name, email, password, role, is_verified, is_active } = body;
 
-    const foundEmail = await this.userModel.findOne({email});
+    const foundEmail = await this.userModel.findOne({ email });
     if (foundEmail)
       throw new HttpException('Email already exist.', HttpStatus.CONFLICT);
 
@@ -48,6 +48,19 @@ export class UserService {
     return {
       message: 'User created successfully.',
       data: newUser,
+    };
+  }
+  //=========================================================
+  // Delete User
+  
+  async deleteUser(id: any) {
+    const user = await this.userModel.findByIdAndDelete(id);
+
+    if (!user) throw new HttpException('User not found.', HttpStatus.NOT_FOUND);
+
+    return {
+      message: 'User deleted successfully.',
+      data: user,
     };
   }
 }

@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -46,5 +47,14 @@ export class UserController {
     body: addUserDTO,
   ) {
     return this._userService.addUser(body);
+  }
+  //======================================================
+  // Delete User
+
+  @Delete(':userId')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.Admin)
+  deleteUser(@Param('userId') userId: any) {
+    return this._userService.deleteUser(userId);
   }
 }
