@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
@@ -13,7 +14,7 @@ import { JwtAuthGuard } from 'src/core/guards/auth/auth.guard';
 import { RolesGuard } from 'src/core/guards/Role/role.guard';
 import { Roles } from 'src/core/guards/Role/role.decorator';
 import { Role } from 'src/core/guards/Role/enum/role.enum';
-import { addUserDTO } from '../dto/user.dto';
+import { addUserDTO, updateUserDTO } from '../dto/user.dto';
 //======================================================
 @Controller('users')
 export class UserController {
@@ -56,5 +57,18 @@ export class UserController {
   @Roles(Role.Admin)
   deleteUser(@Param('userId') userId: any) {
     return this._userService.deleteUser(userId);
+  }
+  //======================================================
+  // Update User
+
+  @Put(':userId')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.Admin)
+  updateUser(
+    @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
+    body: updateUserDTO,
+    @Param('userId') userId: any,
+  ) {
+    return this._userService.updateUser(userId, body);
   }
 }

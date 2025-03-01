@@ -52,7 +52,7 @@ export class UserService {
   }
   //=========================================================
   // Delete User
-  
+
   async deleteUser(id: any) {
     const user = await this.userModel.findByIdAndDelete(id);
 
@@ -61,6 +61,32 @@ export class UserService {
     return {
       message: 'User deleted successfully.',
       data: user,
+    };
+  }
+  //=========================================================
+  // Update User
+
+  async updateUser(userId: any, body: any) {
+    const { full_name, role, is_active, is_verified } = body;
+    const foundUser = await this.userModel.findByIdAndUpdate(
+      userId,
+      {
+        full_name,
+        role,
+        is_active,
+        is_verified,
+      },
+      {
+        new: true,
+      },
+    );
+
+    if (!foundUser)
+      throw new HttpException('User not found.', HttpStatus.NOT_FOUND);
+
+    return {
+      message: 'User updated successfully.',
+      data: foundUser,
     };
   }
 }
