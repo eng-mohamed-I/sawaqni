@@ -25,7 +25,7 @@ export class User {
   @Prop({ type: Boolean, default: true })
   is_active: boolean;
 }
-
+//===================================================
 export const UserSchema = SchemaFactory.createForClass(User);
 
 // Hash password

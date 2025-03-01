@@ -39,6 +39,7 @@ export class JwtAuthGuard implements CanActivate {
     const token = authHeader.split(' ')[1];
 
     const decoded = await this._jwtService.verifyAccessToken(token);
+
     const foundUser = await this.userModel.findById(decoded.id);
     if (!foundUser)
       throw new HttpException('User not found.', HttpStatus.NOT_FOUND);

@@ -19,6 +19,7 @@ export class UserController {
   }
   //======================================================
   // Get Single User
+
   @Get(':id')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.Admin)

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 
@@ -32,7 +32,7 @@ export class JwtTokenService {
         secret: this._configService.get<string>('JWT_ACCESS_KEY'),
       });
     } catch (err) {
-      return null;
+      throw new HttpException('Invalid token', HttpStatus.CONFLICT);
     }
   }
 
@@ -42,8 +42,8 @@ export class JwtTokenService {
       return await this._jwtService.verifyAsync(token, {
         secret: this._configService.get<string>('JWT_REFRESH_KEY'),
       });
-    } catch (error) {
-      return null;
+    } catch (err) {
+      throw new HttpException('Invalid token', HttpStatus.CONFLICT);
     }
   }
 }
