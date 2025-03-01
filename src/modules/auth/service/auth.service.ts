@@ -1,11 +1,12 @@
 import {
+  ExecutionContext,
   HttpException,
   HttpStatus,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { User } from 'src/core/schemas/user.schema';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
@@ -88,6 +89,26 @@ export class AuthService {
     return {
       message: 'Refresh token successfully',
       accessToken,
+    };
+  }
+  //====================================================
+  // Logout
+  async logout(req: any, refreshToken: any) {
+    const { user } = req;
+
+
+    const token = await this.tokenModel.findOneAndDelete({
+      refresh_token: refreshToken,
+      user: user._id,
+    });
+
+    console.log(token);
+
+    if (!token)
+      throw new HttpException('Token not found.', HttpStatus.NOT_FOUND);
+
+    return {
+      message: 'Logout successfully',
     };
   }
 }
