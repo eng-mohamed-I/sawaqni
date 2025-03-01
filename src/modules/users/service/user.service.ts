@@ -2,14 +2,18 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from 'src/core/schemas/user.schema';
+import { ApiFeaturesService } from 'src/core/services/api-feature.service';
 //=========================================================
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
+  constructor(
+    @InjectModel(User.name) private userModel: Model<User>,
+    private _apiFeature: ApiFeaturesService,
+  ) {}
   //=========================================================
   // Get All Users
 
-  async getAllUsers() {
+  async getAllUsers(query: any) {
     const users = await this.userModel.find();
 
     return { message: 'Users founded successfully.', data: users };

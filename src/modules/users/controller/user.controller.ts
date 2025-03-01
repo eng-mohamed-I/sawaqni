@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
@@ -25,8 +26,8 @@ export class UserController {
   @Get('')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.Admin)
-  getAllUsers() {
-    return this._userService.getAllUsers();
+  getAllUsers(@Query() query: any) {
+    return this._userService.getAllUsers(query);
   }
   //======================================================
   // Get Single User
