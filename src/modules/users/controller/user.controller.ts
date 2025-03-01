@@ -1,9 +1,18 @@
-import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  UseGuards,
+  ValidationPipe,
+} from '@nestjs/common';
 import { UserService } from '../service/user.service';
 import { JwtAuthGuard } from 'src/core/guards/auth/auth.guard';
 import { RolesGuard } from 'src/core/guards/Role/role.guard';
 import { Roles } from 'src/core/guards/Role/role.decorator';
 import { Role } from 'src/core/guards/Role/enum/role.enum';
+import { addUserDTO } from '../dto/user.dto';
 //======================================================
 @Controller('users')
 export class UserController {
@@ -27,4 +36,15 @@ export class UserController {
     return this._userService.getUser(id);
   }
   //======================================================
+  // Add User
+
+  @Post('')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.Admin)
+  addUser(
+    @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
+    body: addUserDTO,
+  ) {
+    return this._userService.addUser(body);
+  }
 }

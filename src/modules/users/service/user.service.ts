@@ -25,4 +25,29 @@ export class UserService {
     return { message: 'User founded successfully.', data: foundUser };
   }
   //=========================================================
+  // Add User
+
+  async addUser(body: any) {
+    const { full_name, email, password, role, is_verified, is_active } = body;
+
+    const foundEmail = await this.userModel.findOne({email});
+    if (foundEmail)
+      throw new HttpException('Email already exist.', HttpStatus.CONFLICT);
+
+    const newUser = new this.userModel({
+      full_name,
+      email,
+      password,
+      role,
+      is_verified,
+      is_active,
+    });
+
+    await newUser.save();
+
+    return {
+      message: 'User created successfully.',
+      data: newUser,
+    };
+  }
 }
