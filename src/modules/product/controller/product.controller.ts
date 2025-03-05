@@ -2,13 +2,15 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
+  Put,
   Req,
   UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
 import { ProductService } from '../service/product.service';
-import { addProductDTO } from '../dto/product.dto';
+import { addProductDTO, updateProductDTO } from '../dto/product.dto';
 import { JwtAuthGuard } from 'src/core/guards/auth/auth.guard';
 import { RolesGuard } from 'src/core/guards/Role/role.guard';
 import { Roles } from 'src/core/guards/Role/role.decorator';
@@ -34,5 +36,18 @@ export class ProductController {
   @Get('')
   getAllProducts() {
     return this._productService.getAllProducts();
+  }
+  //=========================================================
+  // Update product
+  @Put('')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.Admin)
+  updateProduct(
+    @Param('id') id: any,
+
+    @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
+    body: updateProductDTO,
+  ) {
+    return this._productService.updateProduct(id, body);
   }
 }

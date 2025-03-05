@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Product } from 'src/core/schemas/product.schema';
@@ -32,5 +32,22 @@ export class ProductService {
     const products = await this.productModel.find();
 
     return { message: 'Products founded successfully.', data: products };
+  }
+  //=========================================================
+  // Update product
+  async updateProduct(productId: any, body: any) {
+    const { name, price, description, quantity } = body;
+
+    const foundProduct = await this.productModel.findByIdAndUpdate(productId, {
+      name,
+      price,
+      description,
+      quantity,
+    });
+
+    if (!foundProduct)
+      throw new HttpException('Prouduct not found', HttpStatus.NOT_FOUND);
+
+    return { message: 'Product updated successfully.', data: foundProduct };
   }
 }
