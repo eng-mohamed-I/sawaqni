@@ -15,9 +15,7 @@ export class addProductDTO {
   name: string;
 
   @IsNumber()
-  @MinLength(0)
   @Min(0)
-  @MaxLength(100)
   price: number;
 
   @IsString()
@@ -27,8 +25,6 @@ export class addProductDTO {
 
   @IsNumber()
   @Min(0)
-  @MinLength(1)
-  @MaxLength(1000)
   quantity: number;
 }
 //========================================

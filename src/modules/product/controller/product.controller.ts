@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Post,
+  Req,
   UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
@@ -21,10 +22,11 @@ export class ProductController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.Admin)
   addProduct(
+    @Req() req: any,
     @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
     body: addProductDTO,
   ) {
-    return this._productService.addProduct(body);
+    return this._productService.addProduct(body, req);
   }
   //=========================================================
 }

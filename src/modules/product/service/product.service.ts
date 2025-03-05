@@ -10,14 +10,16 @@ export class ProductService {
   ) {}
   //=========================================================
   // Add product
-  async addProduct(body: any) {
+  async addProduct(body: any, req: any) {
     const { name, price, description, quantity } = body;
+    const { id } = req.user;
 
     const newProduct = new this.productModel({
       name,
       price,
       description,
       quantity,
+      created_by: id,
     });
 
     await newProduct.save();
@@ -31,5 +33,4 @@ export class ProductService {
 
     return { message: 'Products founded successfully.', data: products };
   }
-  
 }
