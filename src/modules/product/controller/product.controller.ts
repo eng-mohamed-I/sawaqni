@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   Post,
   Req,
   UseGuards,
@@ -29,4 +30,9 @@ export class ProductController {
     return this._productService.addProduct(body, req);
   }
   //=========================================================
+  // Get all products
+  @Get('')
+  getAllProducts() {
+    return this._productService.getAllProducts();
+  }
 }
