@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Delete, Get, Param, UseGuards } from '@nestjs/common';
 import { TokenService } from '../service/token.service';
 import { JwtAuthGuard } from 'src/core/guards/auth/auth.guard';
 import { RolesGuard } from 'src/core/guards/Role/role.guard';
@@ -17,4 +17,10 @@ export class TokenController {
     return this._tokenService.getAllTokens();
   }
   //===================================================
+  @Delete('')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.Admin)
+  deleteToken(@Param('id') tokenId: string) {
+    return this._tokenService.deleteToken(tokenId);
+  }
 }
