@@ -61,4 +61,15 @@ export class ProductService {
 
     return { message: 'Product deleted successfully.', data: deletedProduct };
   }
+  //===========================================================
+  // Get single product
+
+  async getProduct(id: any) {
+    const product = await this.productModel.findById(id);
+
+    if (!product)
+      throw new HttpException('Product not found.', HttpStatus.NOT_FOUND);
+
+    return { message: 'Product get successfully.', data: product };
+  }
 }

@@ -59,4 +59,11 @@ export class ProductController {
   deleteProduct(@Param('id') productId: any) {
     return this._productService.deleteProduct(productId);
   }
+  //=========================================================
+  // Get product
+
+  @Get(':id')
+  getProduct(@Param('id') productId: any) {
+    return this._productService.getProduct(productId);
+  }
 }
