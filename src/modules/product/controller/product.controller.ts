@@ -54,6 +54,8 @@ export class ProductController {
   //=========================================================
   // Delete product
   @Delete('')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.Admin)
   deleteProduct(@Param('id') productId: any) {
     return this._productService.deleteProduct(productId);
   }
