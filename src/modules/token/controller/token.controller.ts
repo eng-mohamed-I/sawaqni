@@ -1,5 +1,9 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 import { TokenService } from '../service/token.service';
+import { JwtAuthGuard } from 'src/core/guards/auth/auth.guard';
+import { RolesGuard } from 'src/core/guards/Role/role.guard';
+import { Roles } from 'src/core/guards/Role/role.decorator';
+import { Role } from 'src/core/guards/Role/enum/role.enum';
 //===================================================
 @Controller('tokens')
 export class TokenController {
@@ -7,7 +11,10 @@ export class TokenController {
   //===================================================
   // Get all tokens
   @Get('')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.Admin)
   getAllTokens() {
     return this._tokenService.getAllTokens();
   }
+  //===================================================
 }
