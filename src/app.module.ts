@@ -6,7 +6,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/users/user.module';
 import { ProductModule } from './modules/product/product.module';
-
+import { TokenModule } from './modules/token/token.module';
+//===============================================================
 @Module({
   imports: [
     // for .env config
@@ -22,9 +23,11 @@ import { ProductModule } from './modules/product/product.module';
     // Modules
     AuthModule,
     UserModule,
-    ProductModule
+    ProductModule,
+    TokenModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
+//===============================================================
 export class AppModule {}
