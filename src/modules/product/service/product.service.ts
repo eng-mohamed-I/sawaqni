@@ -50,4 +50,15 @@ export class ProductService {
 
     return { message: 'Product updated successfully.', data: foundProduct };
   }
+  //=========================================================
+  // Delete Product
+
+  async deleteProduct(id: any) {
+    const deletedProduct = await this.productModel.findByIdAndDelete(id);
+
+    if (!deletedProduct)
+      throw new HttpException('Product not found.', HttpStatus.NOT_FOUND);
+
+    return { message: 'Product deleted successfully.', data: deletedProduct };
+  }
 }

@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -39,7 +40,7 @@ export class ProductController {
   }
   //=========================================================
   // Update product
-  @Put('')
+  @Put(':id')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.Admin)
   updateProduct(
@@ -49,5 +50,11 @@ export class ProductController {
     body: updateProductDTO,
   ) {
     return this._productService.updateProduct(id, body);
+  }
+  //=========================================================
+  // Delete product
+  @Delete('')
+  deleteProduct(@Param('id') productId: any) {
+    return this._productService.deleteProduct(productId);
   }
 }
