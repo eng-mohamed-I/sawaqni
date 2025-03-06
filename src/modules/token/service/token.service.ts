@@ -10,6 +10,8 @@ export class TokenService {
   // Get all tokens
   async getAllTokens() {
     const tokens = await this.tokenModel.find();
+
+    return { message: 'Tokens founded.', data: tokens };
   }
   //================================================================
   // Delete Token
@@ -19,7 +21,7 @@ export class TokenService {
     if (!deletedToken)
       throw new HttpException('Token not found.', HttpStatus.NOT_FOUND);
 
-    return { message: 'Token deleted successfully.', data: this.deleteToken };
+    return { message: 'Token deleted successfully.', data: deletedToken };
   }
   //================================================================
 }

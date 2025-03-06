@@ -18,7 +18,7 @@ export class TokenController {
   }
   //===================================================
   // Delete Token
-  @Delete('')
+  @Delete(':id')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.Admin)
   deleteToken(@Param('id') tokenId: string) {
