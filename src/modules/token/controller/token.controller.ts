@@ -17,10 +17,12 @@ export class TokenController {
     return this._tokenService.getAllTokens();
   }
   //===================================================
+  // Delete Token
   @Delete('')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.Admin)
   deleteToken(@Param('id') tokenId: string) {
     return this._tokenService.deleteToken(tokenId);
   }
+  //===================================================
 }

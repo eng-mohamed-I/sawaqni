@@ -11,6 +11,9 @@ import {
 import { AuthService } from '../service/auth.service';
 import { loginDTO, registerDTO } from '../dto/auth.dto';
 import { JwtAuthGuard } from 'src/core/guards/auth/auth.guard';
+import { RolesGuard } from 'src/core/guards/Role/role.guard';
+import { Roles } from 'src/core/guards/Role/role.decorator';
+import { Role } from 'src/core/guards/Role/enum/role.enum';
 //====================================================
 @Controller('auth')
 export class AuthController {
@@ -49,4 +52,12 @@ export class AuthController {
     return this._authService.logout(req, refreshToken);
   }
   //====================================================
+  // logout from all devices
+
+  @Post('logout-all')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.Admin, Role.User)
+  logoutAll(@Req() req: any) {
+    return this._authService.logoutAll(req);
+  }
 }

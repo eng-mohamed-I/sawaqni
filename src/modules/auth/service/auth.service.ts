@@ -96,19 +96,27 @@ export class AuthService {
   async logout(req: any, refreshToken: any) {
     const { user } = req;
 
-
     const token = await this.tokenModel.findOneAndDelete({
       refresh_token: refreshToken,
       user: user._id,
     });
-
-    console.log(token);
 
     if (!token)
       throw new HttpException('Token not found.', HttpStatus.NOT_FOUND);
 
     return {
       message: 'Logout successfully',
+    };
+  }
+  //===============================================
+  // Logout all
+  async logoutAll(req: any) {
+    const { user } = req;
+    const deletedTokens = await this.tokenModel.deleteMany({ user: user._id });
+
+    return {
+      message: 'Logged out from all session.',
+      data: deletedTokens,
     };
   }
 }
