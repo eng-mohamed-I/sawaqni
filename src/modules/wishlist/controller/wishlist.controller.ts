@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   Param,
   Post,
   Req,
@@ -27,6 +28,13 @@ export class WishlistController {
     body: addWishListDTO,
   ) {
     return this._wishListService.addWishList(req, body);
+  }
+  //==========================================================
+  @Get('')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.Admin, Role.User)
+  getUserWishList(@Req() req: any) {
+    return this._wishListService.getUserWishList(req);
   }
   //==========================================================
 }

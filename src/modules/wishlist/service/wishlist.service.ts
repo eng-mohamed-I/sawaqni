@@ -18,6 +18,19 @@ export class WishlistService {
 
     if (!wishList.products.includes(id)) wishList.products.push(id);
 
+    await wishList.save();
+
     return { message: 'Product added successfully.', data: wishList };
+  }
+  //==========================================================
+  async getUserWishList(req: any) {
+    const { user } = req;
+
+    let wishList = await this.wishListModel.findOne({ user: user._id });
+
+    if (!wishList)
+      wishList = new this.wishListModel({ user: user.id, products: [] });
+
+    return { message: 'Wishlist founded.', data: wishList };
   }
 }
