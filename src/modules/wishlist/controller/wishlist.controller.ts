@@ -4,6 +4,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   Req,
   UseGuards,
   ValidationPipe,
@@ -19,7 +20,7 @@ import { addWishListDTO } from '../dto/wishlist.dto';
 export class WishlistController {
   constructor(private _wishListService: WishlistService) {}
   //==========================================================
-  @Post('')
+  @Post('user')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.Admin, Role.User)
   addWishList(
@@ -30,11 +31,18 @@ export class WishlistController {
     return this._wishListService.addWishList(req, body);
   }
   //==========================================================
-  @Get('')
+  @Get('user')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.Admin, Role.User)
   getUserWishList(@Req() req: any) {
     return this._wishListService.getUserWishList(req);
+  }
+  //==========================================================
+  @Put('user')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.Admin, Role.User)
+  deleteFromWishList(@Req() req: any, @Body() body: any) {
+    return this._wishListService.deleteFromWishList(req, body);
   }
   //==========================================================
 }

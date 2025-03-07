@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { WishList } from 'src/core/schemas/wishlist.schema';
@@ -9,8 +9,10 @@ export class WishlistService {
     @InjectModel(WishList.name) private wishListModel: Model<WishList>,
   ) {}
   //==========================================================
-  async addWishList(req: any, id: any) {
+  async addWishList(req: any, body: any) {
     const { user } = req;
+    const { id } = body;
+
     let wishList = await this.wishListModel.findOne({ user: user._id });
 
     if (!wishList)
@@ -32,5 +34,23 @@ export class WishlistService {
       wishList = new this.wishListModel({ user: user.id, products: [] });
 
     return { message: 'Wishlist founded.', data: wishList };
+  }
+  //==========================================================
+  async deleteFromWishList(req: any, body: any) {
+    const { user } = req;
+    const { id } = body;
+
+    let wishList = await this.wishListModel.findOneAndUpdate(
+      { user: user._id },
+      { $pull: { products: id } },
+      { new: true },
+    );
+
+    if (!wishList)
+      throw new HttpException('WishList not found.', HttpStatus.NOT_FOUND);
+    return {
+      message: 'Wishlist updated successfully.',
+      data: wishList,
+    };
   }
 }
