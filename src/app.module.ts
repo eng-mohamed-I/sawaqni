@@ -8,6 +8,7 @@ import { UserModule } from './modules/users/user.module';
 import { ProductModule } from './modules/product/product.module';
 import { TokenModule } from './modules/token/token.module';
 import { WishlistModule } from './modules/wishlist/wishlist.module';
+import { OrderModule } from './modules/order/order.module';
 //===============================================================
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { WishlistModule } from './modules/wishlist/wishlist.module';
     ProductModule,
     TokenModule,
     WishlistModule,
+    OrderModule,
   ],
   controllers: [AppController],
   providers: [AppService],

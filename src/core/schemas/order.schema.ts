@@ -1,4 +1,4 @@
-import { Prop, Schema } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
 import { User } from './user.schema';
 import { Product } from './product.schema';
@@ -30,3 +30,6 @@ export class Order {
   @Prop({ type: String, required: true, enum: ['pending', 'paid', 'faild'] })
   payment_status: string;
 }
+
+//=========================================================
+export const OrderSchema = SchemaFactory.createForClass(Order);
