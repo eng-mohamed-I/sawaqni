@@ -53,4 +53,10 @@ export class WishlistService {
       data: wishList,
     };
   }
+  //==========================================================
+  async getAllWishList() {
+    const wishLists = await this.wishListModel.find();
+
+    return { message: 'WishList founded.', data: wishLists };
+  }
 }

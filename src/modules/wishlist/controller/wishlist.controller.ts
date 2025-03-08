@@ -45,4 +45,13 @@ export class WishlistController {
     return this._wishListService.deleteFromWishList(req, body);
   }
   //==========================================================
+  // For Admin
+  // Get All wishlists
+
+  @Get('')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.Admin)
+  getAllWishList() {
+    return this._wishListService.getAllWishList();
+  }
 }
