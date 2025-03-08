@@ -10,7 +10,7 @@ export class Coupon {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   created_by: User;
 
-  @Prop({ type: Number, required: true })
+  @Prop({ type: Number, required: true, default: 0 })
   discount_percentage: number;
 
   @Prop({ type: Date, required: true })

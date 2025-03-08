@@ -18,7 +18,7 @@ export class Order {
   @Prop({ type: Number, required: true })
   price: number;
 
-  @Prop({ type: Number, required: true })
+  @Prop({ type: Number, required: true, default: 0 })
   discount: number;
 
   @Prop({ type: Number, required: true })
@@ -27,7 +27,12 @@ export class Order {
   @Prop({ type: String, required: true, enum: ['paypal', 'strip'] })
   payment_method: string;
 
-  @Prop({ type: String, required: true, enum: ['pending', 'paid', 'faild'] })
+  @Prop({
+    type: String,
+    required: true,
+    enum: ['pending', 'paid', 'faild'],
+    default: 'pending',
+  })
   payment_status: string;
 }
 

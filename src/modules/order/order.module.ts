@@ -6,6 +6,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Order, OrderSchema } from 'src/core/schemas/order.schema';
 import { User, UserSchema } from 'src/core/schemas/user.schema';
 import { Coupon, CouponSchema } from 'src/core/schemas/coupon.schema';
+import { Product, ProductSchema } from 'src/core/schemas/product.schema';
 //=========================================================
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { Coupon, CouponSchema } from 'src/core/schemas/coupon.schema';
       { name: Order.name, schema: OrderSchema },
       { name: User.name, schema: UserSchema },
       { name: Coupon.name, schema: CouponSchema },
+      { name: Product.name, schema: ProductSchema },
     ]),
   ],
   controllers: [OrderController],
