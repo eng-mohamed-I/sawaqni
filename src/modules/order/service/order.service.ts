@@ -56,5 +56,9 @@ export class OrderService {
       total_amount: finalPrice,
       payment_method,
     });
+
+    await newOrder.save();
+
+    return { message: 'Order created successfully.', data: newOrder };
   }
 }
