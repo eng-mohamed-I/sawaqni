@@ -5,6 +5,7 @@ import { OrderService } from './service/order.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Order, OrderSchema } from 'src/core/schemas/order.schema';
 import { User, UserSchema } from 'src/core/schemas/user.schema';
+import { Coupon, CouponSchema } from 'src/core/schemas/coupon.schema';
 //=========================================================
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { User, UserSchema } from 'src/core/schemas/user.schema';
     MongooseModule.forFeature([
       { name: Order.name, schema: OrderSchema },
       { name: User.name, schema: UserSchema },
+      { name: Coupon.name, schema: CouponSchema },
     ]),
   ],
   controllers: [OrderController],
