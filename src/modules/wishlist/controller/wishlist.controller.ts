@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -54,4 +55,14 @@ export class WishlistController {
   getAllWishList() {
     return this._wishListService.getAllWishList();
   }
+  //==========================================================
+  // Delete Wishlist
+
+  @Delete(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.Admin)
+  deleteWishList(@Param('id') wishListId: any) {
+    return this._wishListService.deleteWishList(wishListId);
+  }
+  //==========================================================
 }

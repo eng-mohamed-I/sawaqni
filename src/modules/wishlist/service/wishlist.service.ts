@@ -59,4 +59,13 @@ export class WishlistService {
 
     return { message: 'WishList founded.', data: wishLists };
   }
+  //==========================================================
+  async deleteWishList(id: string) {
+    const deletedWishlist = await this.wishListModel.findByIdAndDelete(id);
+
+    if (!deletedWishlist)
+      throw new HttpException('Wishlist not found.', HttpStatus.NOT_FOUND);
+
+    return { message: 'WishList deleted successfully.', data: deletedWishlist };
+  }
 }
