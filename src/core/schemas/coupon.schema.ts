@@ -4,7 +4,7 @@ import { User } from './user.schema';
 //=========================================================
 @Schema({ timestamps: true, versionKey: false })
 export class Coupon {
-  @Prop({ type: String, required: true })
+  @Prop({ type: String, required: true, unique: true })
   code: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })

@@ -9,6 +9,7 @@ import { ProductModule } from './modules/product/product.module';
 import { TokenModule } from './modules/token/token.module';
 import { WishlistModule } from './modules/wishlist/wishlist.module';
 import { OrderModule } from './modules/order/order.module';
+import { CouponModule } from './modules/coupon/coupon.module';
 //===============================================================
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { OrderModule } from './modules/order/order.module';
     TokenModule,
     WishlistModule,
     OrderModule,
+    CouponModule,
   ],
   controllers: [AppController],
   providers: [AppService],
