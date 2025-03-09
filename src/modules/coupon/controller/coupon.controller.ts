@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Param,
   Post,
   Put,
   Req,
@@ -12,7 +13,7 @@ import { JwtAuthGuard } from 'src/core/guards/auth/auth.guard';
 import { RolesGuard } from 'src/core/guards/Role/role.guard';
 import { Roles } from 'src/core/guards/Role/role.decorator';
 import { Role } from 'src/core/guards/Role/enum/role.enum';
-import { addCouponDTO } from '../dto/coupon.dto';
+import { addCouponDTO, updateCouponDTO } from '../dto/coupon.dto';
 //===============================================================
 
 @Controller('coupon')
@@ -28,6 +29,17 @@ export class CouponController {
     body: addCouponDTO,
   ) {
     return this._couponService.addCoupon(req, body);
+  }
+  //===============================================================
+  @Put(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.Admin)
+  updateCoupon(
+    @Param('id') couponCode: any,
+    @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
+    body: updateCouponDTO,
+  ) {
+    return this.updateCoupon(couponCode, body);
   }
   //===============================================================
 }

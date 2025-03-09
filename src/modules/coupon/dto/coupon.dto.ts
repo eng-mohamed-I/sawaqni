@@ -12,7 +12,7 @@ import {
 export class addCouponDTO {
   @IsString()
   @IsNotEmpty()
-  coupon: string;
+  code: string;
 
   @IsNumber()
   @IsNotEmpty()
@@ -30,3 +30,19 @@ export class addCouponDTO {
   is_active: boolean;
 }
 //===============================================
+export class updateCouponDTO {
+  @IsNumber()
+  @IsNotEmpty()
+  @Min(0)
+  @Max(100)
+  discount_precentage: number;
+
+  @IsDate()
+  @IsNotEmpty()
+  @MinDate(new Date())
+  valid_until: Date;
+
+  @IsBoolean()
+  @IsNotEmpty()
+  is_active: boolean;
+}

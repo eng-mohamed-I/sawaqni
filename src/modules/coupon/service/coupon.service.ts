@@ -29,4 +29,18 @@ export class CouponService {
     return { message: 'Coupon code created successfully.', data: newCoupon };
   }
   //===============================================================
+  async updateCoupon(couponCode: string, body: any) {
+    const { is_active, valid_until, discount_percentage } = body;
+
+    const coupon = await this.couponModel.findOneAndUpdate(
+      { code: couponCode },
+      { is_active, valid_until, discount_percentage },
+      { new: true },
+    );
+
+    if (!coupon)
+      throw new HttpException('Coupon not found.', HttpStatus.NOT_FOUND);
+
+    return { message: 'Coupon updated successfully.', data: coupon };
+  }
 }
