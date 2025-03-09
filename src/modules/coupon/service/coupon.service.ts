@@ -57,4 +57,13 @@ export class CouponService {
 
     return { message: 'Coupon founded.', data: coupons };
   }
+  //===============================================================
+  async getCoupon(id: any) {
+    const coupon = await this.couponModel.findById(id);
+
+    if (!coupon)
+      throw new HttpException('Coupon not found.', HttpStatus.NOT_FOUND);
+
+    return { message: 'Coupon founded', data: coupon };
+  }
 }

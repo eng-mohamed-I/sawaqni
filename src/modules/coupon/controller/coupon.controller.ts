@@ -17,7 +17,6 @@ import { Roles } from 'src/core/guards/Role/role.decorator';
 import { Role } from 'src/core/guards/Role/enum/role.enum';
 import { addCouponDTO, updateCouponDTO } from '../dto/coupon.dto';
 //===============================================================
-
 @Controller('coupon')
 export class CouponController {
   constructor(private _couponService: CouponService) {}
@@ -57,4 +56,12 @@ export class CouponController {
   getAllCoupons() {
     return this._couponService.getAllCoupons();
   }
+  //===============================================================
+  @Get(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.Admin)
+  getCoupon(@Param('id') couponId: any) {
+    return this.getCoupon(couponId);
+  }
+  //===============================================================
 }
