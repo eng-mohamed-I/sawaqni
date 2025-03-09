@@ -51,4 +51,10 @@ export class CouponService {
 
     return { message: 'Coupon deleted successfully.', data: coupon };
   }
+  //===============================================================
+  async getAllCoupons() {
+    const coupons = await this.couponModel.find();
+
+    return { message: 'Coupon founded.', data: coupons };
+  }
 }

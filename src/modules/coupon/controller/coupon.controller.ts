@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   Param,
   Post,
   Put,
@@ -48,5 +49,12 @@ export class CouponController {
   @Roles(Role.Admin)
   deleteCoupon(@Param('id') couponId: any) {
     return this._couponService.deleteCoupon(couponId);
+  }
+  //===============================================================
+  @Get('')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.Admin)
+  getAllCoupons() {
+    return this._couponService.getAllCoupons();
   }
 }
