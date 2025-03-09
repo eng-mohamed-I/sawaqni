@@ -43,4 +43,12 @@ export class CouponService {
 
     return { message: 'Coupon updated successfully.', data: coupon };
   }
+  //===============================================================
+  async deleteCoupon(id: any) {
+    const coupon = await this.couponModel.findByIdAndDelete(id);
+    if (!coupon)
+      throw new HttpException('Coupon not found.', HttpStatus.NOT_FOUND);
+
+    return { message: 'Coupon deleted successfully.', data: coupon };
+  }
 }
