@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer';
 import {
   IsBoolean,
   IsDate,
@@ -18,10 +19,11 @@ export class addCouponDTO {
   @IsNotEmpty()
   @Min(0)
   @Max(100)
-  discount_precentage: number;
+  discount_percentage: number;
 
   @IsDate()
   @IsNotEmpty()
+  @Type(() => Date)
   @MinDate(new Date())
   valid_until: Date;
 
@@ -35,7 +37,7 @@ export class updateCouponDTO {
   @IsNotEmpty()
   @Min(0)
   @Max(100)
-  discount_precentage: number;
+  discount_percentage: number;
 
   @IsDate()
   @IsNotEmpty()

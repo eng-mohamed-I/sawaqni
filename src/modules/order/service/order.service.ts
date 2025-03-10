@@ -104,7 +104,10 @@ export class OrderService {
   }
   //===========================================================
   async getOrders() {
-    const orders = await this.orderModel.find().populate('products.product');
+    const orders = await this.orderModel
+      .find()
+      .populate('products.product')
+      .populate('user', 'email');
 
     return { message: 'Order found successfully.', data: orders };
   }

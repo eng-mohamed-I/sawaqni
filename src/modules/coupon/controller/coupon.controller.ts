@@ -17,7 +17,7 @@ import { Roles } from 'src/core/guards/Role/role.decorator';
 import { Role } from 'src/core/guards/Role/enum/role.enum';
 import { addCouponDTO, updateCouponDTO } from '../dto/coupon.dto';
 //===============================================================
-@Controller('coupon')
+@Controller('coupons')
 export class CouponController {
   constructor(private _couponService: CouponService) {}
   //===============================================================

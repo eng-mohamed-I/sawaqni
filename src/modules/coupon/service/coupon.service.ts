@@ -26,6 +26,8 @@ export class CouponService {
       is_active,
     });
 
+    await newCoupon.save();
+
     return { message: 'Coupon code created successfully.', data: newCoupon };
   }
   //===============================================================
