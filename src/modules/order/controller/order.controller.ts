@@ -35,4 +35,11 @@ export class OrderController {
   getUserOrders(@Req() req: any) {
     return this._orderService.getUserOrders(req);
   }
+  //=========================================================
+  @Get('')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.Admin)
+  getOrders() {
+    return this._orderService.getOrders();
+  }
 }
