@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   Post,
   Req,
   UseGuards,
@@ -28,4 +29,10 @@ export class OrderController {
     return this._orderService.addOrder(body, req);
   }
   //=========================================================
+  @Get('user')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.Admin, Role.User)
+  getUserOrders(@Req() req: any) {
+    return this._orderService.getUserOrders(req);
+  }
 }

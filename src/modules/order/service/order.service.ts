@@ -12,7 +12,7 @@ export class OrderService {
     @InjectModel(Coupon.name) private couponModel: Model<Coupon>,
     @InjectModel(Product.name) private productModel: Model<Product>,
   ) {}
-
+  //===========================================================
   async addOrder(body: any, req: any) {
     const { products, payment_method, coupon } = body;
     const { user } = req;
@@ -28,7 +28,6 @@ export class OrderService {
     const foundProducts = await this.productModel.find({
       _id: { $in: productIds },
     });
-
 
     if (foundProducts.length !== products.length) {
       throw new HttpException(
@@ -92,5 +91,15 @@ export class OrderService {
     await newOrder.save();
 
     return { message: 'Order created successfully.', data: newOrder };
+  }
+  //===========================================================
+  async getUserOrders(req: any) {
+    const { user } = req;
+
+    const foundOrders = await this.orderModel
+      .find({ user: user._id })
+      .populate('products.product');
+
+    return { message: 'Orders found successfully.', data: foundOrders };
   }
 }
