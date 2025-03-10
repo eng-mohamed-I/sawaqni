@@ -1,13 +1,13 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { Product } from 'src/core/schemas/product.schema';
 //=========================================================
 export class addOrderDTO {
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   coupon: string;
 
   @IsNotEmpty()
-  products: [Product];
+  products: [{ product: Product; quentity: number }];
 
   @IsString()
   @IsNotEmpty()
