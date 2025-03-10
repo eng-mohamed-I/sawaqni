@@ -13,7 +13,7 @@ import { RolesGuard } from 'src/core/guards/Role/role.guard';
 import { Role } from 'src/core/guards/Role/enum/role.enum';
 import { addOrderDTO } from '../dto/order.dto';
 //=========================================================
-@Controller('order')
+@Controller('orders')
 export class OrderController {
   constructor(private _orderService: OrderService) {}
   //=========================================================

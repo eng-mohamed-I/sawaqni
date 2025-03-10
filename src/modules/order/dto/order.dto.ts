@@ -4,10 +4,11 @@ import { Product } from 'src/core/schemas/product.schema';
 export class addOrderDTO {
   @IsString()
   @IsOptional()
+  @IsNotEmpty()
   coupon: string;
 
   @IsNotEmpty()
-  products: [{ product: Product; quentity: number }];
+  products: [{ product: Product; quantity: number }];
 
   @IsString()
   @IsNotEmpty()

@@ -9,11 +9,19 @@ export class Order {
   user: User;
 
   @Prop({
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Product',
+    type: [
+      {
+        product: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Product',
+          required: true,
+        },
+        quantity: { type: Number, required: true },
+      },
+    ],
     required: true,
   })
-  products: [Product];
+  products: [{ product: Product; quentity: number }];
 
   @Prop({ type: Number, required: true })
   price: number;
