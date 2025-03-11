@@ -24,4 +24,4 @@ export class Cart {
   products: [{ product: Product; quentity: number }];
 }
 //=========================================================
-const CartSchema = SchemaFactory.createForClass(Cart);
+export const CartSchema = SchemaFactory.createForClass(Cart);
