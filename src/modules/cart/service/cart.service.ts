@@ -32,4 +32,11 @@ export class CartService {
     return { message: 'Product added successfully.', data: cart };
   }
   //============================================================
+  async getUserCart(req: any) {
+    const { user } = req;
+
+    const cart = await this.cartModel.findOne({ user: user._id });
+
+    return { message: 'Cart founded. ', data: cart };
+  }
 }
