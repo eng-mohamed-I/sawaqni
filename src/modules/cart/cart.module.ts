@@ -5,6 +5,7 @@ import { CartService } from './service/cart.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Cart, CartSchema } from 'src/core/schemas/cart.schema';
 import { User, UserSchema } from 'src/core/schemas/user.schema';
+import { Product, ProductSchema } from 'src/core/schemas/product.schema';
 //============================================================
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { User, UserSchema } from 'src/core/schemas/user.schema';
     MongooseModule.forFeature([
       { name: Cart.name, schema: CartSchema },
       { name: User.name, schema: UserSchema },
+      { name: Product.name, schema: ProductSchema },
     ]),
   ],
   controllers: [CartController],
