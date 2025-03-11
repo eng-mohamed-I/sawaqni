@@ -21,7 +21,7 @@ export class Cart {
     ],
     required: true,
   })
-  products: [{ product: Product; quentity: number }];
+  products: [{ product: Product; quantity: number }];
 }
 //=========================================================
 export const CartSchema = SchemaFactory.createForClass(Cart);
