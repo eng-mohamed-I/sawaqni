@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { Cart } from 'src/core/schemas/cart.schema';
 import { Product } from 'src/core/schemas/product.schema';
 //============================================================
@@ -51,6 +51,36 @@ export class CartService {
 
     return { message: 'Cart founded. ', data: cart };
   }
+  //============================================================
+  async deleteFromCart(req: any, body: any) {
+    const { product } = body;
+    const { user } = req;
+
+    let cart = await this.cartModel.findOne({
+      user: user._id,
+    });
+
+    if (!cart)
+      throw new HttpException('Cart not found on cart.', HttpStatus.NOT_FOUND);
+
+    const exitingProduct = cart.products.findIndex(
+      (e) => e.product.toString() === product.product,
+    );
+
+    if (exitingProduct === -1) {
+      throw new HttpException('Product not found.', HttpStatus.NOT_FOUND);
+    }
+
+    if (cart.products[exitingProduct].quantity === 1) {
+      cart.products.splice(exitingProduct, 1);
+    } else {
+      cart.products[exitingProduct].quantity -= 1;
+    }
+
+    await cart.save();
+    return { message: 'Product deleted successfully.', data: cart };
+  }
+
   //============================================================
   async getCarts() {
     const carts = await this.cartModel.find();

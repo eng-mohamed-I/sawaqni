@@ -32,6 +32,13 @@ export class CartController {
     return this._cartService.getUserCart(req);
   }
   //============================================================
+  @Delete('user')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.Admin, Role.User)
+  deleteFromCart(@Req() req: any, @Body() body: any) {
+    return this._cartService.deleteFromCart(req, body);
+  }
+  //============================================================
   @Get('')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.Admin)
