@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { CartService } from '../service/cart.service';
 import { JwtAuthGuard } from 'src/core/guards/auth/auth.guard';
 import { RolesGuard } from 'src/core/guards/Role/role.guard';
@@ -21,6 +30,20 @@ export class CartController {
   @Roles(Role.Admin, Role.User)
   getUserCart(@Req() req: any) {
     return this._cartService.getUserCart(req);
+  }
+  //============================================================
+  @Get('')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.Admin)
+  getCarts() {
+    return this._cartService.getCarts();
+  }
+  //============================================================
+  @Delete(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.Admin)
+  deleteCart(@Param('id') cartId: any) {
+    return this._cartService.deleteCart(cartId);
   }
   //============================================================
 }

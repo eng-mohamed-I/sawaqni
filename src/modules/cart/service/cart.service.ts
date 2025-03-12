@@ -52,4 +52,17 @@ export class CartService {
     return { message: 'Cart founded. ', data: cart };
   }
   //============================================================
+  async getCarts() {
+    const carts = await this.cartModel.find();
+
+    return { message: 'Carts founded.', data: carts };
+  }
+  //============================================================
+  async deleteCart(id: any) {
+    const cart = await this.cartModel.findByIdAndDelete(id);
+
+    if (!cart) throw new HttpException('Cart not found.', HttpStatus.CONFLICT);
+
+    return { message: 'Cart deleted succssfully.', data: cart };
+  }
 }
