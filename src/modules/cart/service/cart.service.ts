@@ -80,7 +80,6 @@ export class CartService {
     await cart.save();
     return { message: 'Product deleted successfully.', data: cart };
   }
-
   //============================================================
   async getCarts() {
     const carts = await this.cartModel.find();

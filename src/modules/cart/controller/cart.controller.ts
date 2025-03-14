@@ -18,6 +18,7 @@ import { Role } from 'src/core/guards/Role/enum/role.enum';
 export class CartController {
   constructor(private _cartService: CartService) {}
   //============================================================
+  // Add Cart => User - Admin
   @Post('user')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.Admin, Role.User)
@@ -25,6 +26,7 @@ export class CartController {
     return this._cartService.addToCart(req, body);
   }
   //============================================================
+  // Get Cart => User - Admin
   @Get('user')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.Admin, Role.User)
@@ -32,6 +34,7 @@ export class CartController {
     return this._cartService.getUserCart(req);
   }
   //============================================================
+  // Delete from cart => User - Admin
   @Delete('user')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.Admin, Role.User)
@@ -39,6 +42,7 @@ export class CartController {
     return this._cartService.deleteFromCart(req, body);
   }
   //============================================================
+  // Get Carts => Admin
   @Get('')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.Admin)
@@ -46,6 +50,7 @@ export class CartController {
     return this._cartService.getCarts();
   }
   //============================================================
+  // Delete Cart => Admin
   @Delete(':id')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.Admin)
