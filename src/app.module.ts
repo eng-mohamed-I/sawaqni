@@ -24,7 +24,6 @@ import { CartModule } from './modules/cart/cart.module';
         uri: configService.get<string>('MONGO_URI'),
       }),
     }),
-    // Modules
     AuthModule,
     UserModule,
     ProductModule,

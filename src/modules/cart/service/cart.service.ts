@@ -11,6 +11,7 @@ export class CartService {
     @InjectModel(Product.name) private productModel: Model<Product>,
   ) {}
   //============================================================
+  // Add to cart => User - Admin
   async addToCart(req: any, body: any) {
     const { user } = req;
     const { product } = body;
@@ -44,6 +45,7 @@ export class CartService {
     return { message: 'Product added successfully.', data: cart };
   }
   //============================================================
+  // Get user cart => User - Admin
   async getUserCart(req: any) {
     const { user } = req;
 
@@ -52,6 +54,7 @@ export class CartService {
     return { message: 'Cart founded. ', data: cart };
   }
   //============================================================
+  // Delete from cart => User - Admin
   async deleteFromCart(req: any, body: any) {
     const { product } = body;
     const { user } = req;
@@ -81,12 +84,14 @@ export class CartService {
     return { message: 'Product deleted successfully.', data: cart };
   }
   //============================================================
+  // Get all carts => Admin
   async getCarts() {
     const carts = await this.cartModel.find();
 
     return { message: 'Carts founded.', data: carts };
   }
   //============================================================
+  // Delete cart => Admin
   async deleteCart(id: any) {
     const cart = await this.cartModel.findByIdAndDelete(id);
 
@@ -94,4 +99,5 @@ export class CartService {
 
     return { message: 'Cart deleted succssfully.', data: cart };
   }
+  //============================================================
 }

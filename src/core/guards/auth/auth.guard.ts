@@ -5,6 +5,8 @@ import {
   UnauthorizedException,
   HttpException,
   HttpStatus,
+  forwardRef,
+  Inject,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { InjectModel } from '@nestjs/mongoose';
@@ -15,6 +17,7 @@ import { JwtTokenService } from 'src/modules/auth/services/jwt-token/jwt-token.s
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
   constructor(
+    @Inject(forwardRef(() => JwtTokenService))
     private _jwtService: JwtTokenService,
     private _reflector: Reflector,
     @InjectModel(User.name) private userModel: Model<User>,
